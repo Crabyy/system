@@ -267,6 +267,33 @@ export default {
 
     closeModal() {
       this.showModal = false
+
+      // Reset all data fields to their initial values
+      this.givenname = '';
+      this.middlename = '';
+      this.surname = '';
+      this.email = '';
+      this.emailError = '';
+      this.username = '';
+      this.password = '';
+      this.confirmpassword = '';
+      this.contactnumber = '';
+      this.birthdate = '';
+      this.birthdateError = '';
+      this.gender = '';
+      this.registrationSuccess = false;
+      this.registrationError = '';
+
+      // Reset the validation errors
+      this.errors = {
+        givenname: '',
+        middlename: '',
+        surname: '',
+        username: '',
+        contactnumber: '',
+        password: '',
+        passwordMatch: '',
+      };
     },
 
     validateUsername() {
