@@ -327,19 +327,25 @@ export default {
     },
 
     validateContactNumber() {
-      const contactNumberRegex = /^[0-9]+$/ // Only numeric values allowed
-      if (!contactNumberRegex.test(this.contactnumber.trim())) {
-        // console.log('Invalid contact number format')
-        this.errors.contactnumber = 'Invalid contact number format'
-        return false
+      const contactNumberRegex = /^[0-9]+$/; // Only numeric values allowed
+      const trimmedContactNumber = this.contactnumber.trim();
+
+      if (!contactNumberRegex.test(trimmedContactNumber)) {
+        this.errors.contactnumber = 'Invalid Contact Number';
+        return false;
       }
 
-      // Clear the error message if validation passes
-      this.errors.contactnumber = ''
+      if (trimmedContactNumber.length < 11) {
+        this.errors.contactnumber = 'Contact number must be at least 11 numbers';
+        return false;
+      }
 
-      // Additional checks, if needed
-
-      return true
+      if (trimmedContactNumber.length > 11) {
+        this.errors.contactnumber = 'Contact number must not exceed more than 11 numbers';
+        return false;
+      }
+      this.errors.contactnumber = '';
+      return true;
     },
 
     validateName(name, fieldName) {
@@ -361,21 +367,21 @@ export default {
       // (?=.*[A-Z])     At least one uppercase letter
       // (?=.*\d)        At least one digit
       // (?=.*[@$!%*?&]) At least one special character
-      // .{11,}          Match any combination of characters with a minimum length of 11
+      // .{8,}           Match any combination of characters with a minimum length of 8
       // $               End of string
 
       if (!passwordRegex.test(this.password)) {
-
-        if (this.password.length < 11) {
-          this.errors.password = 'Password must be at least 8 characters long.'
+        if (this.password.length < 8) {
+          this.errors.password = 'Password must be at least 8 characters long.';
         } else {
-          this.errors.password = 'Use a strong password with at least one lowercase letter, uppercase letter, number, and special character.'
+          this.errors.password = 'Use a strong password with at least one lowercase letter, uppercase letter, number, and special character.';
         }
-        return false
+        return false;
       }
-      this.errors.password = ''
-      return true
+      this.errors.password = '';
+      return true;
     },
+
 
     validateBirthdate() {
       const currentDate = new Date()
@@ -558,16 +564,6 @@ export default {
         passwordMatch: '',
       };
     },
-
-    // handleFileUpload() {
-    //   const selectedFile = this.$refs.fileInput.files[0]
-    //   this.selectedFileName = selectedFile ? selectedFile.name : null
-    //   // You can perform additional actions with the selected file
-    //   console.log('Selected File:', selectedFile)
-    // },
-    // triggerFileInput() {
-    //   this.$refs.fileInput.click()
-    // },
   }
 }
 </script>
