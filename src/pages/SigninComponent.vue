@@ -25,7 +25,7 @@
           </div>
           <small>
             <p class="mt-2 text-xs">Don't have an account? <a href="#" class="register-here"
-                @click.prevent="openModal"><u>Click
+                @click.prevent="openModal"><u>Register
                   Here!</u></a>
             </p>
             <RegisterComponent ref="registerModal" />
