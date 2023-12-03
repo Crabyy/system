@@ -1,3 +1,5 @@
+import { checkIfUserIsAuthenticated } from "./auth";
+
 const routes = [
   {
     path: "/",
@@ -10,6 +12,15 @@ const routes = [
     name: "MainLayout",
     component: () => import("layouts/MainLayout.vue"),
     children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
+    beforeEnter: (to, from, next) => {
+      // Check if the user is authenticated
+      if (checkIfUserIsAuthenticated()) {
+        // User is authenticated, proceed to HomeComponent
+        next();
+      } else {
+        next("/");
+      }
+    },
   },
 
   // Always leave this as last one,

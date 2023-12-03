@@ -71,6 +71,7 @@
 </template>
 
 <script>
+import { simulateLogin } from '../router/auth.js'
 import backgroundImage from '../assets/apartment.jpg';
 import RegisterComponent from '../pages/RegisterComponent.vue'
 
@@ -113,7 +114,8 @@ export default {
           if (responseData.success) {
             // Handle successful login
             console.log('Login successful');
-            this.$router.push({ name: 'MainLayout' })
+            simulateLogin();
+            this.$router.push('MainLayout')
           } else {
             // Handle login error
             console.error(responseData.message)
