@@ -349,15 +349,15 @@ export default {
     },
 
     validateName(name, fieldName) {
-      const nameRegex = /^[a-zA-Z]+$/ // Only letters allowed
+      const nameRegex = /^[a-zA-Z\s]+$/; // Allow letters and spaces
       if (!nameRegex.test(name.trim())) {
-        // console.log(`Invalid ${fieldName} format`)
-        this.errors[fieldName.toLowerCase()] = `Invalid ${fieldName}`
-        return false
+        this.errors[fieldName.toLowerCase()] = `Invalid ${fieldName}`;
+        return false;
       }
-      this.errors[fieldName.toLowerCase()] = ''
-      return true
+      this.errors[fieldName.toLowerCase()] = '';
+      return true;
     },
+
 
     validatePassword() {
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@.$!%*?&,]).{8,}$/;
