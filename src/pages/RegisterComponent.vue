@@ -46,7 +46,11 @@
             <input type="text" v-model="email" id="email" name="email" placeholder="Email" @change="validateEmail"
               class="block mb-2 border w-full text-base px-2 py-1 pl-8 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-lg">
             <i class="fa-solid fa-envelope absolute top-3 left-2 text-gray-500"></i>
-            <div v-if="emailError && email !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">{{ emailError }}</div>
+            <div v-if="errors.emailError && email !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">{{
+              errors.emailError }}</div>
+            <div v-if="errors.registrationError === 'Email already exists'"
+              class="text-red-500 text-sm mt-1 text-left ml-3">
+              Email already exists</div>
           </div>
 
           <div class="mt-3 relative">
@@ -56,6 +60,9 @@
             <i class="fa-solid fa-user absolute top-3 left-2 text-gray-500"></i>
             <div v-if="errors.username && username !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">
               {{ errors.username }}</div>
+            <div v-if="errors.registrationError === 'Username already exists'"
+              class="text-red-500 text-sm mt-1 text-left ml-3">
+              Username already exists</div>
           </div>
 
           <div class="mt-3 relative">
@@ -96,8 +103,8 @@
               focus:border-gray-600 rounded-lg">
               <i class="fa-solid fa-calendar absolute top-3 left-2 text-gray-500"></i>
             </div>
-            <div v-if="birthdateError && birthdate !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">{{
-              birthdateError }}</div>
+            <div v-if="errors.birthdateError && birthdate !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">{{
+              errors.birthdateError }}</div>
             <!-- Display error message -->
           </div>
 
@@ -237,25 +244,26 @@ export default {
       middlename: '',
       surname: '',
       email: '',
-      emailError: '',
       username: '',
       password: '',
       confirmpassword: '',
       contactnumber: '',
       birthdate: '',
-      birthdateError: '',
       gender: '',
+
       registrationSuccess: false,
-      registrationError: '',
 
       errors: {
         givenname: '',
         middlename: '',
         surname: '',
         username: '',
+        emailError: '',
         contactnumber: '',
         password: '',
         passwordMatch: '',
+        birthdateError: '',
+        registrationError: '',
       },
     }
   },
@@ -311,10 +319,10 @@ export default {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
       if (!emailRegex.test(this.email.trim())) {
         // console.log('Invalid email format')
-        this.emailError = 'Please enter a valid Email'
+        this.errors.emailError = 'Please enter a valid Email'
         return false
       }
-      this.emailError = ''
+      this.errors.emailError = ''
       return true
     },
 
@@ -374,9 +382,9 @@ export default {
       const enteredDate = new Date(this.birthdate)
 
       if (enteredDate > currentDate) {
-        this.birthdateError = 'Please enter a valid Birth Date'
+        this.errors.birthdateError = 'Please enter a valid Birth Date'
       } else {
-        this.birthdateError = ''
+        this.errors.birthdateError = ''
       }
     },
 
@@ -473,7 +481,7 @@ export default {
 
         if (checkData.exists) {
           console.log('Username or email already exists')
-          this.registrationError = 'Username or email already exists'
+          this.errors.registrationError = checkData.field === 'username' ? 'Username already exists' : 'Email already exists'
           return
         }
 
@@ -504,14 +512,14 @@ export default {
           if (responseData.success) {
             this.registrationSuccess = true
           } else {
-            this.registrationError = responseData.message
+            this.errors.registrationError = responseData.message
           }
         } else {
-          this.registrationError = 'An error occurred during registration.'
+          this.errors.registrationError = 'An error occurred during registration.'
         }
       } catch (error) {
         console.error('Error during registration:', error)
-        this.registrationError = 'An error occurred during registration.'
+        this.errors.registrationError = 'An error occurred during registration.'
       }
     },
 
