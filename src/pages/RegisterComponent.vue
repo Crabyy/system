@@ -48,8 +48,7 @@
             <i class="fa-solid fa-envelope absolute top-3 left-2 text-gray-500"></i>
             <div v-if="errors.emailError && email !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">{{
               errors.emailError }}</div>
-            <div v-if="errors.registrationError === 'Email already exists'"
-              class="text-red-500 text-sm mt-1 text-left ml-3">
+            <div v-if="errors.registrationError" class="text-red-500 text-sm mt-1 text-left ml-3">
               Email already exists</div>
           </div>
 
@@ -60,8 +59,7 @@
             <i class="fa-solid fa-user absolute top-3 left-2 text-gray-500"></i>
             <div v-if="errors.username && username !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">
               {{ errors.username }}</div>
-            <div v-if="errors.registrationError === 'Username already exists'"
-              class="text-red-500 text-sm mt-1 text-left ml-3">
+            <div v-if="errors.registrationError === 'username'" class="text-red-500 text-sm mt-1 text-left ml-3">
               Username already exists</div>
           </div>
 
@@ -336,12 +334,12 @@ export default {
       }
 
       if (trimmedContactNumber.length < 11) {
-        this.errors.contactnumber = 'Contact number must be at least 11 numbers';
+        this.errors.contactnumber = 'Contact number must be at least 11 digits';
         return false;
       }
 
       if (trimmedContactNumber.length > 11) {
-        this.errors.contactnumber = 'Contact number must not exceed more than 11 numbers';
+        this.errors.contactnumber = 'Contact number must not exceed 11 digits';
         return false;
       }
       this.errors.contactnumber = '';
@@ -448,7 +446,7 @@ export default {
 
     async checkPasswordMatch() {
       if (this.password !== this.confirmpassword) {
-        this.errors.passwordMatch = 'Password does match.'
+        this.errors.passwordMatch = 'Password does not match.'
         return false
       }
       this.errors.passwordMatch = ''
@@ -487,7 +485,13 @@ export default {
 
         if (checkData.exists) {
           console.log('Username or email already exists')
-          this.errors.registrationError = checkData.field === 'username' ? 'Username already exists' : 'Email already exists'
+          if (checkData.field === 'username') {
+            this.errors.registrationError = 'username'
+            this.errors.registrationError = ''; // Reset email error
+          } else if (checkData.field === 'email') {
+            this.errors.registrationError = 'email'
+            this.errors.registrationError = '' // Reset username error
+          }
           return
         }
 

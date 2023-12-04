@@ -1,14 +1,14 @@
 <template>
-  <div class="w-screen h-screen flex">
+  <div class="flex">
     <!-- Side bar -->
-    <div class="w-[400px] h-full bg-gray-200 text-white" v-show="showSide">
+    <div class="w-[300px] h-screen bg-gray-200 text-white" v-show="showSide">
       <div class="h-[50px] bg-gray-900 flex justify-start  items-center ">
         <div class="px-[20px]">
           <h3 class="font-bold text-xl">Admin Dashboard</h3>
         </div>
       </div>
       <div class="h-[calc(100vh-50px)] bg-gray-800 py-[20px]">
-        <div class="flex flex-col justify-between h-full px-[20px] space-y-[10px]">
+        <div class="flex flex-col justify-between h-ful px-[20px] space-y-[10px]">
           <div class=" flex flex-col item-center justify-between space-y-[10px]">
             <router-link to="/profile"
               class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-300  hover:text-gray-800 transition duration-400 ease-in-out">
@@ -34,18 +34,19 @@
           </div>
           <div class="h-[50px]">
             <div>
-              <router-link to="/"
+              <router-link to="/" @click="logoutDashboard"
                 class="inline-flex relative items-center py-[10px] px-[10px] w-full text-sm font-medium rounded-md border-gray-200 hover:bg-gray-300 hover:text-gray-800  transition duration-400 ease-in-out">
                 <i class="fa-solid fa-right-from-bracket mr-2 w-[25px] h-[25px] fill-current mt-3"></i>
-                Log-out
+                Logout
               </router-link>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="w-full h-full bg-gray-400">
-      <div class="h-[50px] bg-gray-100 flex items-center shadow-sm px-[20px] w-full py-[10px] z-10 border-b ">
+
+    <div class="flex-1 flex flex-col">
+      <div class="h-[50px] bg-gray-100 flex items-center shadow-sm px-[20px] w-full py-[10px] z-10 border-b">
         <!-- Hambuger menu -->
         <div class="cursor-pointer w-[30px]" @click="toggleSideBar">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class=" w-[25px] h-[25px]">
@@ -54,10 +55,8 @@
               d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
           </svg>
         </div>
-        <!-- Search bar -->
 
         <div class="w-[calc(100%-30px)] flex">
-
           <!-- User login -->
           <div class="w-[200px] ">
             <div class="flex items-center justify-start space-x-4" @click="toggleDrop">
@@ -87,7 +86,7 @@
           </div>
         </div>
       </div>
-      <div class="h-[calc(100vh-50px)] bg-gray-50 p-[20px]">
+      <div class="flex-1 bg-gray-400 p-[20px]">
         <div class="border border-gray-300 rounded-md p-[20px] h-full">
           <router-view></router-view>
         </div>
@@ -97,6 +96,8 @@
   </div>
 </template>
 <script>
+import { checkIfUserIsAuthenticated, simulateLogout } from '../router/auth.js'
+
 export default {
   name: 'DashboardComponent',
   data() {
@@ -109,14 +110,28 @@ export default {
     // hide show side bar
     toggleSideBar() {
       this.showSide = !this.showSide
-
+      return
     },
     // toggle user
     toggleDrop() {
       this.showDropDown = !this.showDropDown
+      return
+    },
 
+    logoutDashboard() {
+      simulateLogout();
+      console.log('logout');
+      this.$router.push('/')
     }
-  }
+  },
+
+  beforeRouteEnter(to, from, next) {
+    if (checkIfUserIsAuthenticated()) {
+      next();
+    } else {
+      next('/');
+    }
+  },
 
 }
 </script>

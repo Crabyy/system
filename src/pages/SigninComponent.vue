@@ -72,6 +72,7 @@
 
 <script>
 import { simulateLogin } from '../router/auth.js'
+import { checkIfUserIsAuthenticated } from '../router/auth.js'
 import backgroundImage from '../assets/apartment.jpg';
 import RegisterComponent from '../pages/RegisterComponent.vue'
 
@@ -87,6 +88,14 @@ export default {
       backgroundImage,
       username: '',
       password: '',
+    }
+  },
+
+  beforeRouteEnter(to, from, next) {
+    if (checkIfUserIsAuthenticated()) {
+      next('/DashboardComponent');
+    } else {
+      next();
     }
   },
 
@@ -110,24 +119,20 @@ export default {
         });
 
         if (response.ok) {
-          const responseData = await response.json()
+          const responseData = await response.json();
           if (responseData.success) {
-            // Handle successful login
             console.log('Login successful');
             simulateLogin();
-            this.$router.push('MainLayout')
+            this.$router.push('DashboardComponent');
           } else {
-            // Handle login error
-            console.error(responseData.message)
+            console.error(responseData.message);
           }
         } else {
-          // Handle server error
-          console.error('An error occurred during login.')
+          console.error('An error occurred during login.');
           this.errModal = true;
         }
       } catch (error) {
-        console.error('Error during login:', error)
-        // Handle other errors
+        console.error('Error during login:', error);
       }
     },
     deacModal() {
