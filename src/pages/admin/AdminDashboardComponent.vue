@@ -4,7 +4,7 @@
     <div class="w-[300px] h-screen bg-gray-200 text-white" v-show="showSide">
       <div class="h-[50px] bg-gray-900 flex justify-start  items-center ">
         <div class="px-[20px]">
-          <h3 class="font-bold text-xl">Dashboard</h3>
+          <h3 class="font-bold text-xl">Admin Dashboard</h3>
         </div>
       </div>
       <div class="h-[calc(100vh-50px)] bg-gray-800 py-[20px]">
@@ -96,10 +96,10 @@
   </div>
 </template>
 <script>
-import { checkIfUserIsAuthenticated, simulateLogout } from '../router/auth.js'
+import { checkIfUserIsAuthenticated, simulateLogout } from '../../router/auth.js'
 
 export default {
-  name: 'DashboardComponent',
+  name: 'AdminDashboardComponent',
   data() {
     return {
       showDropDown: false,
@@ -136,5 +136,5 @@ export default {
 </script>
 
 <style>
-@import url('../assets/tailwind.css');
+@import url('../../assets/tailwind.css');
 </style>

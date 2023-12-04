@@ -121,14 +121,19 @@ export default {
         if (response.ok) {
           const responseData = await response.json();
           if (responseData.success) {
-            console.log('Login successful');
-            simulateLogin();
-            this.$router.push('DashboardComponent');
+            simulateLogin(responseData.role); // Pass the role
+            if (responseData.role == "user") {
+              this.$router.push('DashboardComponent')
+            }
+            if (responseData.role == "admin") {
+              this.$router.push('AdminDashboardComponent')
+            }
+
           } else {
             console.error(responseData.message);
           }
         } else {
-          console.error('An error occurred during login.');
+          console.error('An error occurred during login.')
           this.errModal = true;
         }
       } catch (error) {

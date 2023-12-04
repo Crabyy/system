@@ -37,8 +37,11 @@ if ($database->dbState()) {
     $conn = $database->dbConn();
 
     // Prepare and execute the SQL statement
-    $stmt = $conn->prepare("INSERT INTO users (givenname, middlename, surname, email, username, password, contactnumber, birthdate, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->execute([$givenname, $middlename, $surname, $email, $username, $password, $contactnumber, $birthdate, $gender]);
+    $stmt = $conn->prepare("INSERT INTO users (role, givenname, middlename, surname, email, username, password, contactnumber, birthdate, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+    $role = 'user';
+
+    $stmt->execute([$role, $givenname, $middlename, $surname, $email, $username, $password, $contactnumber, $birthdate, $gender]);
 
     echo json_encode(['message' => 'Registration successful']);
   } else {

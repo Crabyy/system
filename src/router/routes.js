@@ -1,4 +1,4 @@
-import { checkIfUserIsAuthenticated } from "./auth";
+import { checkIfUserIsAuthenticated, getUserRole } from "./auth";
 
 const routes = [
   {
@@ -7,37 +7,39 @@ const routes = [
     component: () => import("src/pages/SigninComponent.vue"),
   },
 
-  // {
-  //   path: "/MainLayout",
-  //   name: "MainLayout",
-  //   component: () => import("layouts/MainLayout.vue"),
-  //   children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
-  //   beforeEnter: (to, from, next) => {
-  //     // Check if the user is authenticated
-  //     if (checkIfUserIsAuthenticated()) {
-  //       // User is authenticated, proceed to HomeComponent
-  //       next();
-  //     } else {
-  //       next("/");
-  //     }
-  //   },
-  // },
-
   {
     path: "/DashboardComponent",
     name: "DashboardComponent",
     component: () => import("../pages/DashboardComponent.vue"),
     beforeEnter: (to, from, next) => {
-      // Check if the user is authenticated
-      if (checkIfUserIsAuthenticated()) {
-        // User is authenticated, proceed to HomeComponent
+      const role = getUserRole();
+      if (checkIfUserIsAuthenticated() && role !== "admin") {
         next();
+      } else if (checkIfUserIsAuthenticated() && role === "admin") {
+        // Redirect to admin dashboard or wherever you want
+        next("/AdminDashboardComponent");
       } else {
         next("/");
       }
     },
   },
 
+  {
+    path: "/AdminDashboardComponent",
+    name: "AdminDashboardComponent",
+    component: () => import("../pages/admin/AdminDashboardComponent.vue"),
+    beforeEnter: (to, from, next) => {
+      const role = getUserRole();
+      if (checkIfUserIsAuthenticated() && role === "admin") {
+        next();
+      } else if (checkIfUserIsAuthenticated() && role !== "admin") {
+        // Redirect to user dashboard or wherever you want
+        next("/DashboardComponent");
+      } else {
+        next("/");
+      }
+    },
+  },
   // Always leave this as last one,
   // but you can also remove it
   {
