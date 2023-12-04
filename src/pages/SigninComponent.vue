@@ -122,12 +122,14 @@ export default {
           const responseData = await response.json();
           if (responseData.success) {
             simulateLogin(responseData.role); // Pass the role
+            // Inside the signin method
             if (responseData.role == "user") {
-              this.$router.push('DashboardComponent')
+              this.$router.push('/Dashboard');
             }
             if (responseData.role == "admin") {
-              this.$router.push('AdminDashboardComponent')
+              this.$router.push('/Administration');
             }
+
 
           } else {
             console.error(responseData.message);

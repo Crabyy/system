@@ -5,10 +5,24 @@ const routes = [
     path: "/",
     name: "SigninComponent",
     component: () => import("src/pages/SigninComponent.vue"),
+    beforeEnter: (to, from, next) => {
+      // If the user is already authenticated, redirect to the appropriate dashboard
+      if (checkIfUserIsAuthenticated()) {
+        const role = getUserRole();
+        if (role === "admin") {
+          next("/Administration");
+        } else {
+          next("/Dashboard");
+        }
+      } else {
+        // Allow access to the SigninComponent for non-authenticated users
+        next();
+      }
+    },
   },
 
   {
-    path: "/DashboardComponent",
+    path: "/Dashboard",
     name: "DashboardComponent",
     component: () => import("../pages/DashboardComponent.vue"),
     beforeEnter: (to, from, next) => {
@@ -17,7 +31,7 @@ const routes = [
         next();
       } else if (checkIfUserIsAuthenticated() && role === "admin") {
         // Redirect to admin dashboard or wherever you want
-        next("/AdminDashboardComponent");
+        next("/Administration");
       } else {
         next("/");
       }
@@ -25,7 +39,7 @@ const routes = [
   },
 
   {
-    path: "/AdminDashboardComponent",
+    path: "/Administration",
     name: "AdminDashboardComponent",
     component: () => import("../pages/admin/AdminDashboardComponent.vue"),
     beforeEnter: (to, from, next) => {
@@ -34,7 +48,7 @@ const routes = [
         next();
       } else if (checkIfUserIsAuthenticated() && role !== "admin") {
         // Redirect to user dashboard or wherever you want
-        next("/DashboardComponent");
+        next("/Dashboard");
       } else {
         next("/");
       }
