@@ -17,23 +17,23 @@ require_once('../config/dbcon.php');
 $database = new Database();
 
 if ($database->dbState()) {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $requestData = json_decode(file_get_contents('php://input'), true);
-        $username = $requestData['username'];
-        $email = $requestData['email'];
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $requestData = json_decode(file_get_contents('php://input'), true);
+    $username = $requestData['username'];
+    $email = $requestData['email'];
 
-        $conn = $database->dbConn();
+    $conn = $database->dbConn();
 
-        $stmt = $conn->prepare("SELECT COUNT(*) as count FROM users WHERE username = ? OR email = ?");
-        $stmt->execute([$username, $email]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt = $conn->prepare("SELECT COUNT(*) as count FROM users WHERE username = ? OR email = ?");
+    $stmt->execute([$username, $email]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        echo json_encode(['exists' => $result['count'] > 0]);
-    } else {
-        http_response_code(400);
-        echo json_encode(['error' => 'Invalid request']);
-    }
+    echo json_encode(['exists' => $result['count'] > 0]);
+  } else {
+    http_response_code(400);
+    echo json_encode(['error' => 'Invalid request']);
+  }
 } else {
-    http_response_code(500);
-    echo json_encode(['error' => $database->errMsg()]);
+  http_response_code(500);
+  echo json_encode(['error' => $database->errMsg()]);
 }
