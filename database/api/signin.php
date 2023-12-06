@@ -30,7 +30,7 @@ if ($database->dbState()) {
     $conn = $database->dbConn();
 
     // Prepare and execute the SQL statement to check both email and username for users
-    $stmt = $conn->prepare("SELECT * FROM users WHERE email = :identifier OR username = :identifier");
+    $stmt = $conn->prepare("SELECT * FROM users WHERE (email = :identifier OR username = :identifier) AND status = 1");
     $stmt->execute(['identifier' => $identifier]);
 
     // Fetch the user data
@@ -41,7 +41,7 @@ if ($database->dbState()) {
       echo json_encode(['success' => true, 'message' => 'Login successful', 'role' => $user['role']]);
     } else {
       // Check for admins if login failed for users
-      $stmt = $conn->prepare("SELECT * FROM admins WHERE email = :identifier OR username = :identifier");
+      $stmt = $conn->prepare("SELECT * FROM admins WHERE (email = :identifier OR username = :identifier) AND status = 1");
       $stmt->execute(['identifier' => $identifier]);
 
       // Fetch the admin data
