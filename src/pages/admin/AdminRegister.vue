@@ -9,7 +9,7 @@
         </svg>
       </button>
       <div class="text-center">
-        <h2 class="text-3xl text-blue-700 font-bold">Register</h2>
+        <h2 class="text-3xl text-blue-700 font-bold">Create Admin Account</h2>
         <br>
       </div>
 
@@ -80,15 +80,6 @@
         </div>
         <div class="w-full sm:w-1/2 pl-4">
           <!-- Fields for the second column -->
-          <div class="mt-3 relative">
-            <input type="text" v-model="contactnumber" id="contactnumber" name="contactnumber"
-              placeholder="Contact Number" @change="validateContactNumber"
-              class="block mb-2 border w-full text-base px-2 py-1 pl-8 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-lg">
-            <i class="fa-solid fa-mobile-screen absolute top-3 left-2 text-gray-500"></i>
-            <div v-if="errors.contactnumber && contactnumber !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">{{
-              errors.contactnumber }}</div>
-          </div>
-
 
           <div class="mt-3 relative">
             <label for="birthdate" class="block text-base text-left font-medium text-gray-700 mb-2 ml-3">Birth
@@ -125,30 +116,10 @@
             </div>
           </div>
 
-          <!-- File upload section -->
-          <!-- <div class="mt-3 border p-1 w-full rounded-lg">
-
-            <div class="input-fields flex items-center">
-              <label for="documentUpload" class="flex items-center">
-                <i class="fa-solid fa-upload mr-2 text-gray-500"></i>
-                <span class="documentUpload">Upload Valid ID</span>
-              </label>
-              <input ref="fileInput" class="choosefile hidden" type="file" id="documentUpload" name="documentUpload"
-                accept=".pdf, .doc, .docx, .jpg, .jpeg, .png" @change="handleFileUpload" required />
-              <div class="ml-2">
-                <button type="button"
-                  class="bg-white hover:bg-gray-400 text-black py-2 px-4 rounded-lg border border-solid border-x-gray-300"
-                  @click="triggerFileInput">
-                  Select File
-                </button>
-                <span class="ml-2 " v-if="selectedFileName">{{ selectedFileName }}</span>
-              </div>
-            </div>
-          </div> -->
         </div>
         <div class="flex items-center justify-end mt-6 w-full">
           <button type="submit" id="register" name="register"
-            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline text-sm">Register</button>
+            class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg focus:outline-none focus:shadow-outline text-sm">Create</button>
         </div>
       </q-form>
       <!-- Modal for Error Handling -->
@@ -169,7 +140,7 @@
                     </svg>
                   </div>
                   <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Error Registering</h3>
+                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Error Creating</h3>
                     <div class="mt-2">
                       <p class="text-sm text-gray-500">Please fill out all fields.
                       </p>
@@ -202,11 +173,11 @@
                     </svg>
                   </div>
                   <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Registered Succesfully
+                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Created Succesfully
                     </h3>
                     <div class="mt-2">
-                      <p class="text-sm text-gray-500">You can now go back to the Sign In page to sign in. Thank you for
-                        registering.
+                      <p class="text-sm text-gray-500">You can go back now. Thank you for
+                        creating admin account.
                       </p>
                     </div>
                   </div>
@@ -214,8 +185,8 @@
               </div>
               <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button type="button" @click="backtoSignin"
-                  class="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto">Back
-                  to Sign In</button>
+                  class="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-green-500 sm:ml-3 sm:w-auto">Go
+                  Back</button>
               </div>
             </div>
           </div>
@@ -242,7 +213,6 @@ export default {
       username: '',
       password: '',
       confirmpassword: '',
-      contactnumber: '',
       birthdate: '',
       gender: '',
 
@@ -254,7 +224,6 @@ export default {
         surname: '',
         username: '',
         emailError: '',
-        contactnumber: '',
         password: '',
         passwordMatch: '',
         birthdateError: '',
@@ -280,7 +249,6 @@ export default {
       this.username = '';
       this.password = '';
       this.confirmpassword = '';
-      this.contactnumber = '';
       this.birthdate = '';
       this.birthdateError = '';
       this.gender = '';
@@ -293,7 +261,6 @@ export default {
         middlename: '',
         surname: '',
         username: '',
-        contactnumber: '',
         password: '',
         passwordMatch: '',
       };
@@ -319,28 +286,6 @@ export default {
       }
       this.errors.emailError = ''
       return true
-    },
-
-    validateContactNumber() {
-      const contactNumberRegex = /^[0-9]+$/; // Only numeric values allowed
-      const trimmedContactNumber = this.contactnumber.trim();
-
-      if (!contactNumberRegex.test(trimmedContactNumber)) {
-        this.errors.contactnumber = 'Invalid Contact Number';
-        return false;
-      }
-
-      if (trimmedContactNumber.length < 11) {
-        this.errors.contactnumber = 'Contact number must be at least 11 digits';
-        return false;
-      }
-
-      if (trimmedContactNumber.length > 11) {
-        this.errors.contactnumber = 'Contact number must not exceed 11 digits';
-        return false;
-      }
-      this.errors.contactnumber = '';
-      return true;
     },
 
     validateName(name, fieldName) {
@@ -398,7 +343,6 @@ export default {
         'username',
         'password',
         'confirmpassword',
-        'contactnumber',
         'birthdate',
         'gender'
       ]
@@ -430,10 +374,6 @@ export default {
         return false
       }
 
-      if (!this.validateContactNumber()) {
-        return false
-      }
-
       if (!this.validatePassword()) {
         return false
       }
@@ -462,7 +402,7 @@ export default {
           return
         }
 
-        const checkResponse = await fetch('http://localhost/system/database/include/register_inc.php', {
+        const checkResponse = await fetch('http://localhost/system/database/include/adminRegister_inc.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -492,7 +432,7 @@ export default {
           return
         }
 
-        const response = await fetch('http://localhost/system/database/api/register.php', {
+        const response = await fetch('http://localhost/system/database/api/adminRegister.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -505,7 +445,6 @@ export default {
             username: this.username,
             password: this.password,
             confirmpassword: this.confirmpassword,
-            contactnumber: this.contactnumber,
             birthdate: this.birthdate,
             gender: this.gender
           })
@@ -547,7 +486,6 @@ export default {
       this.username = '';
       this.password = '';
       this.confirmpassword = '';
-      this.contactnumber = '';
       this.birthdate = '';
       this.birthdateError = '';
       this.gender = '';
@@ -560,7 +498,6 @@ export default {
         middlename: '',
         surname: '',
         username: '',
-        contactnumber: '',
         password: '',
         passwordMatch: '',
       };

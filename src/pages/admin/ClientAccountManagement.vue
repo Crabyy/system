@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md">
-    <q-table class="monggos" flat bordered ref="tableRef" title="Clients' Account Management" :rows="rows"
-      :columns="columns" row-key="id" selection="multiple" v-model:selected="selected" @selection="handleSelection">
+    <q-table class="monggos" flat bordered ref="tableRef" :rows="rows" :columns="columns" row-key="id"
+      v-model:selected="selected" @selection="handleSelection">
       <template v-slot:header-selection="scope">
         <q-checkbox v-model="scope.selected" />
       </template>
@@ -9,6 +9,13 @@
       <template v-slot:body-selection="scope">
         <q-checkbox :model-value="scope.selected"
           @update:model-value="(val, evt) => { Object.getOwnPropertyDescriptor(scope, 'selected').set(val, evt) }" />
+      </template>
+
+      <!-- Title  -->
+      <template v-slot:top-left>
+        <div class="q-mb-sm">
+          <h2 class="text-h6 inline">Clients' Account Management</h2>
+        </div>
       </template>
 
       <!-- remove button -->
@@ -51,9 +58,8 @@
                   <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">Are you sure you want to
                     remove this user?</h3>
                   <div class="text-body2">
-                    Surname: {{ selectedUser.surname }}<br />
-                    Given Name: {{ selectedUser.givenname }}<br />
-                    Middle Name: {{ selectedUser.middlename }}
+                    <br>
+                    User: {{ selectedUser.surname }}, {{ selectedUser.givenname }} {{ selectedUser.middlename }}<br />
                   </div>
                 </div>
               </div>
@@ -229,45 +235,11 @@ export default {
 
     let storedSelectedRow;
 
-    const handleSelection = ({ rows, added, evt }) => {
-      if (rows.length !== 1 || evt === void 0) {
-        return;
+    const handleSelection = ({ rows }) => {
+      if (rows.length === 1) {
+        const [newSelectedRow] = rows;
+        selected.value = [newSelectedRow];
       }
-
-      const [newSelectedRow] = rows;
-      const { ctrlKey, shiftKey } = evt;
-
-      if (shiftKey !== true) {
-        storedSelectedRow = newSelectedRow;
-      }
-
-      nextTick(() => {
-        if (shiftKey === true) {
-          const tableRows = tableRef.value.filteredSortedRows;
-          let firstIndex = tableRows.indexOf(storedSelectedRow);
-          let lastIndex = tableRows.indexOf(newSelectedRow);
-
-          if (firstIndex < 0) {
-            firstIndex = 0;
-          }
-
-          if (firstIndex > lastIndex) {
-            [firstIndex, lastIndex] = [lastIndex, firstIndex];
-          }
-
-          const rangeRows = tableRows.slice(firstIndex, lastIndex + 1);
-          const selectedRows = selected.value.map(toRaw);
-
-          selected.value = added === true
-            ? selectedRows.concat(rangeRows.filter(row => selectedRows.includes(row) === false))
-            : selectedRows.filter(row => rangeRows.includes(row) === false);
-        } else if (ctrlKey === true && added === true) {
-          selected.value = [...selected.value, newSelectedRow];
-        } else if (ctrlKey !== true && added === true) {
-          storedSelectedRow = newSelectedRow;
-          selected.value = [newSelectedRow];
-        }
-      });
     };
 
     const applyFilter = () => {
