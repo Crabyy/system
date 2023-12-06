@@ -1,1 +1,6 @@
-// app global css in SCSS form
+@import url("../assets/tailwind.css");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+* {
+  font-family: "Poppins", sans-serif;
+}

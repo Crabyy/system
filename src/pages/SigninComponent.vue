@@ -71,8 +71,7 @@
 </template>
 
 <script>
-import { simulateLogin } from '../router/auth.js'
-import { checkIfUserIsAuthenticated } from '../router/auth.js'
+import { simulateLogin, checkIfUserIsAuthenticated } from '../router/auth.js'
 import backgroundImage from '../assets/apartment.jpg';
 import RegisterComponent from '../pages/RegisterComponent.vue'
 
@@ -93,7 +92,7 @@ export default {
 
   beforeRouteEnter(to, from, next) {
     if (checkIfUserIsAuthenticated()) {
-      next('/DashboardComponent');
+      next('/Dashboard');
     } else {
       next();
     }
@@ -150,9 +149,6 @@ export default {
 </script>
 
 <style>
-@import url('../assets/tailwind.css');
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
 * {
   font-family: 'Poppins', sans-serif;
 }

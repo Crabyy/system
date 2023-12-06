@@ -39,9 +39,26 @@ const routes = [
   },
 
   {
-    path: "/Administration",
-    name: "AdminDashboardComponent",
-    component: () => import("../pages/admin/AdminDashboardComponent.vue"),
+    path: "/",
+    name: "SideBar",
+    component: () => import("../pages/admin/sidebar/SideBar.vue"),
+    children: [
+      {
+        path: "/Administration",
+        name: "AdminDashboard",
+        component: () => import("../pages/admin/AdminDashboardComponent.vue"),
+      },
+      {
+        path: "/ClientManagement",
+        name: "ClientAccountManagement",
+        component: () => import("../pages/admin/ClientAccountManagement.vue"),
+      },
+      {
+        path: "/AdminManagement",
+        name: "AdminAccountManagement",
+        component: () => import("../pages/admin/AdminAccountManagement.vue"),
+      },
+    ],
     beforeEnter: (to, from, next) => {
       const role = getUserRole();
       if (checkIfUserIsAuthenticated() && role === "admin") {
