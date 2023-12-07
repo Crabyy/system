@@ -15,10 +15,15 @@
             class="block mb-2 border w-full text-base px-2 py-1 pl-8 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-lg">
           <i class="fa-solid fa-user absolute top-2 left-2 text-gray-500"></i>
         </div>
+
         <div class="mt-3 relative">
           <input type="password" v-model="password" id="password" name="password" placeholder="Password"
             class="block mb-2 border w-full text-base px-2 py-1 pl-8 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-lg">
           <i class="fa-solid fa-lock absolute top-2 left-2 text-gray-500"></i>
+          <button @click.prevent="togglePasswordVisibility" class="absolute top-2 right-2 text-gray-500 cursor-pointer">
+            <i :class="passwordVisible ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'"></i>
+          </button>
+
           <div class="mt-4">
             <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 text-base">Sign
               In</button>
@@ -84,6 +89,7 @@ export default {
   data() {
     return {
       errModal: false,
+      passwordVisible: false,
       backgroundImage,
       username: '',
       password: '',
@@ -104,6 +110,19 @@ export default {
       this.$refs.registerModal.openModal();
 
     },
+
+
+    togglePasswordVisibility() {
+      const passwordInput = document.getElementById('password');
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        this.passwordVisible = true;
+      } else {
+        passwordInput.type = 'password';
+        this.passwordVisible = false;
+      }
+    },
+
     async signin() {
       try {
         const response = await fetch('http://localhost/system/database/api/signin.php', {

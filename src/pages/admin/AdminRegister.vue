@@ -61,22 +61,33 @@
           </div>
 
           <div class="mt-3 relative">
-            <input type="password" v-model="password" id="password" name="password" placeholder="Password"
-              @change="validatePassword"
-              class="block mb-2 border w-full text-base px-2 py-1 pl-8 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-lg">
+            <input :type="showPassword ? 'text' : 'password'" v-model="password" id="password" name="password"
+              placeholder="Password" @change="validatePassword"
+              class="block mb-2 border w-full text-base px-2 py-1 pl-8 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-lg" />
             <i class="fa-solid fa-lock absolute top-3 left-2 text-gray-500"></i>
-            <div v-if="errors.password && password !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">{{
-              errors.password }}</div>
+            <i v-if="!showPassword" @click="togglePasswordVisibility"
+              class="fa-solid fa-eye-slash absolute top-3 right-2 text-gray-500 cursor-pointer"></i>
+            <i v-if="showPassword" @click="togglePasswordVisibility"
+              class="fa-solid fa-eye absolute top-3 right-2 text-gray-500 cursor-pointer"></i>
+            <div v-if="errors.password && password !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">
+              {{ errors.password }}
+            </div>
           </div>
 
           <div class="mt-3 relative">
-            <input type="password" v-model="confirmpassword" id="confirmpassword" name="confirmpassword"
-              @change="checkPasswordMatch" placeholder="Confirm Password"
-              class="block mb-2 border w-full text-base px-2 py-1 pl-8 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-lg">
+            <input :type="showConfirmPassword ? 'text' : 'password'" v-model="confirmpassword" id="confirmpassword"
+              name="confirmpassword" @change="checkPasswordMatch" placeholder="Confirm Password"
+              class="block mb-2 border w-full text-base px-2 py-1 pl-8 focus:outline-none focus:ring-0 focus:border-gray-600 rounded-lg" />
             <i class="fa-solid fa-lock absolute top-3 left-2 text-gray-500"></i>
-            <div v-if="errors.passwordMatch && confirmpassword !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">{{
-              errors.passwordMatch }}</div>
+            <i v-if="!showConfirmPassword" @click="toggleConfirmPasswordVisibility"
+              class="fa-solid fa-eye-slash absolute top-3 right-2 text-gray-500 cursor-pointer"></i>
+            <i v-if="showConfirmPassword" @click="toggleConfirmPasswordVisibility"
+              class="fa-solid fa-eye absolute top-3 right-2 text-gray-500 cursor-pointer"></i>
+            <div v-if="errors.passwordMatch && confirmpassword !== ''" class="text-red-500 text-sm mt-1 text-left ml-3">
+              {{ errors.passwordMatch }}
+            </div>
           </div>
+
         </div>
         <div class="w-full sm:w-1/2 pl-4">
           <!-- Fields for the second column -->
@@ -206,6 +217,8 @@ export default {
       errModal: false,
       sucModal: false,
       showModal: false,
+      showPassword: false,
+      showConfirmPassword: false,
       givenname: '',
       middlename: '',
       surname: '',
@@ -264,6 +277,14 @@ export default {
         password: '',
         passwordMatch: '',
       };
+    },
+
+    togglePasswordVisibility() {
+      this.showPassword = !this.showPassword;
+    },
+
+    toggleConfirmPasswordVisibility() {
+      this.showConfirmPassword = !this.showConfirmPassword;
     },
 
     validateUsername() {
