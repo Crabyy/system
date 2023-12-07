@@ -14,7 +14,7 @@
         <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
           <q-list padding>
             <!-- Profile -->
-            <router-link to="/AdminProfile">
+            <router-link to="/admin/Profile">
               <q-item clickable v-ripple @click="selectItem('Profile')"
                 :class="{ 'q-item-active': selectedItem === 'Profile' }">
                 <q-item-section avatar>
@@ -35,7 +35,7 @@
               </q-item>
             </router-link>
 
-            <router-link to="/AdminUnitSelection">
+            <router-link to="/admin/UnitSelection">
               <q-item clickable v-ripple @click="selectItem('UnitSelection')"
                 :class="{ 'q-item-active': selectedItem === 'UnitSelection' }">
                 <q-item-section avatar>
@@ -45,7 +45,7 @@
               </q-item>
             </router-link>
 
-            <router-link to="/AdminAcquireUnit">
+            <router-link to="/admin/AcquireUnit">
               <q-item clickable v-ripple @click="selectItem('AquiringUnit')"
                 :class="{ 'q-item-active': selectedItem === 'AquiringUnit' }">
                 <q-item-section avatar>
@@ -55,7 +55,7 @@
               </q-item>
             </router-link>
 
-            <router-link to="/ClientManagement">
+            <router-link to="/admin/ClientManagement">
               <q-item clickable v-ripple @click="selectItem('ClientAcc')"
                 :class="{ 'q-item-active': selectedItem === 'ClientAcc' }">
                 <q-item-section avatar>
@@ -65,7 +65,7 @@
               </q-item>
             </router-link>
 
-            <router-link to="/AdminManagement">
+            <router-link to="/admin/AdminManagement">
               <q-item clickable v-ripple @click="selectItem('AdminAcc')"
                 :class="{ 'q-item-active': selectedItem === 'AdminAcc' }">
                 <q-item-section avatar>

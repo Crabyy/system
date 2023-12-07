@@ -24,7 +24,7 @@ const routes = [
   {
     path: "/",
     name: "SideBar",
-    component: () => import("../pages/admin/sidebar/SideBar.vue"),
+    component: () => import("../layouts/user/SideBar.vue"),
     children: [
       {
         path: "/Profile",
@@ -62,11 +62,11 @@ const routes = [
 
   {
     path: "/",
-    name: "adminSideBar",
-    component: () => import("../pages/admin/sidebar/adminSideBar.vue"),
+    name: "AdminSideBar",
+    component: () => import("../layouts/admin/AdminSideBar.vue"),
     children: [
       {
-        path: "/AdminProfile",
+        path: "/admin/Profile",
         name: "AdminProfile",
         component: () => import("../components/admin/AdminProfile.vue"),
       },
@@ -76,24 +76,24 @@ const routes = [
         component: () => import("../components/admin/AdminDashboard.vue"),
       },
       {
-        path: "/AdminUnitSelection",
+        path: "/admin/UnitSelection",
         name: "AdminUnitSelection",
         component: () => import("../components/admin/AdminUnitSelection.vue"),
       },
       {
-        path: "/AdminAcquireUnit",
+        path: "/admin/AcquireUnit",
         name: "AdminAcquireUnit",
         component: () => import("../components/admin/AdminAcquireUnit.vue"),
       },
 
       {
-        path: "/ClientManagement",
+        path: "/admin/ClientManagement",
         name: "ClientAccountManagement",
         component: () =>
           import("../components/admin/ClientAccountManagement.vue"),
       },
       {
-        path: "/AdminManagement",
+        path: "/admin/AdminManagement",
         name: "AdminAccountManagement",
         component: () =>
           import("../components/admin/AdminAccountManagement.vue"),
