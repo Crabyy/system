@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { ref, nextTick, toRaw, watch, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 
 export default {
   setup() {
@@ -236,8 +236,6 @@ export default {
         selectedUser.value = null;
       }
     };
-
-    let storedSelectedRow;
 
     const handleSelection = ({ rows }) => {
       if (rows.length === 1) {

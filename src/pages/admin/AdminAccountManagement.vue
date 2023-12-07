@@ -255,8 +255,6 @@ export default {
       }
     };
 
-    let storedSelectedRow;
-
     const handleSelection = ({ rows }) => {
       if (rows.length === 1) {
         const [newSelectedRow] = rows;
