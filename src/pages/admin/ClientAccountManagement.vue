@@ -247,12 +247,26 @@ export default {
     };
 
     const applyFilter = () => {
-      const keyword = filter.value.toLowerCase().trim();
-      rows.value = keyword
+      const keywords = filter.value.toLowerCase().trim().split(/\s+/); // Split search string into words
+      rows.value = keywords.length > 0
         ? originalRows.value.filter(row => {
           return columns.some(column => {
-            const fieldValue = String(row[column.field]).toLowerCase();
-            return fieldValue.includes(keyword);
+            if (['surname', 'givenname', 'middlename'].includes(column.field)) {
+              const fullName = `${row['surname']}, ${row['givenname']} ${row['middlename']}`.toLowerCase();
+              // Check if all keywords are present in the full name
+              return keywords.every(keyword => fullName.includes(keyword));
+            } else if (column.field === 'birthdate') {
+              const date = new Date(row[column.field]);
+              const formattedDate = date.toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+                year: 'numeric',
+              });
+              return formattedDate.toLowerCase().includes(keywords.join(' ')); // Join keywords for date search
+            } else {
+              const fieldValue = String(row[column.field]).toLowerCase();
+              return keywords.every(keyword => fieldValue.includes(keyword));
+            }
           });
         })
         : [...originalRows.value];
