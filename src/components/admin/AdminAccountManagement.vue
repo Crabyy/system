@@ -85,7 +85,7 @@
 
 <script>
 import { ref, watch, onMounted } from 'vue';
-import AdminRegister from './AdminRegister.vue';
+import AdminRegister from '../../pages/AdminRegister.vue';
 
 
 export default {

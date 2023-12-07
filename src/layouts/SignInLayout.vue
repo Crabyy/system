@@ -33,7 +33,7 @@
                 @click.prevent="openModal"><u>Register
                   Here!</u></a>
             </p>
-            <RegisterComponent ref="registerModal" />
+            <Register ref="registerModal" />
           </small>
         </div>
       </div>
@@ -76,14 +76,14 @@
 </template>
 
 <script>
-import { simulateLogin, checkIfUserIsAuthenticated } from '../router/auth.js'
+import { simulateLogin, checkIfUserIsAuthenticated } from '../router/auth';
 import backgroundImage from '../assets/apartment.jpg';
-import RegisterComponent from '../pages/RegisterComponent.vue'
+import Register from '../pages/Register.vue'
 
 export default {
   name: 'SigninComponent',
   components: {
-    RegisterComponent
+    Register
   },
 
   data() {

@@ -4,7 +4,7 @@ const routes = [
   {
     path: "/",
     name: "SigninComponent",
-    component: () => import("src/pages/SigninComponent.vue"),
+    component: () => import("src/layouts/SignInLayout.vue"),
     beforeEnter: (to, from, next) => {
       // If the user is already authenticated, redirect to the appropriate dashboard
       if (checkIfUserIsAuthenticated()) {
@@ -29,22 +29,22 @@ const routes = [
       {
         path: "/Profile",
         name: "ProfileComponent",
-        component: () => import("../pages/ProfileComponent.vue"),
+        component: () => import("../components/user/Profile.vue"),
       },
       {
         path: "/Dashboard",
         name: "DashboardComponent",
-        component: () => import("../pages/DashboardComponent.vue"),
+        component: () => import("../components/user/Dashboard.vue"),
       },
       {
         path: "/Unitselection",
         name: "UnitSelection",
-        component: () => import("../pages/UnitSelection.vue"),
+        component: () => import("../components/user/UnitSelection.vue"),
       },
       {
         path: "/AcquireUnit",
         name: "AcquireUnit",
-        component: () => import("../pages/AcquireUnit.vue"),
+        component: () => import("../components/user/AcquireUnit.vue"),
       },
     ],
     beforeEnter: (to, from, next) => {
@@ -68,33 +68,35 @@ const routes = [
       {
         path: "/AdminProfile",
         name: "AdminProfile",
-        component: () => import("../pages/admin/adminProfile.vue"),
+        component: () => import("../components/admin/AdminProfile.vue"),
       },
       {
         path: "/Administration",
         name: "AdminDashboard",
-        component: () => import("../pages/admin/AdminDashboardComponent.vue"),
+        component: () => import("../components/admin/AdminDashboard.vue"),
       },
       {
         path: "/AdminUnitSelection",
         name: "AdminUnitSelection",
-        component: () => import("../pages/admin/adminUnitSelection.vue"),
+        component: () => import("../components/admin/AdminUnitSelection.vue"),
       },
       {
         path: "/AdminAcquireUnit",
         name: "AdminAcquireUnit",
-        component: () => import("../pages/admin/adminAcquireUnit.vue"),
+        component: () => import("../components/admin/AdminAcquireUnit.vue"),
       },
 
       {
         path: "/ClientManagement",
         name: "ClientAccountManagement",
-        component: () => import("../pages/admin/ClientAccountManagement.vue"),
+        component: () =>
+          import("../components/admin/ClientAccountManagement.vue"),
       },
       {
         path: "/AdminManagement",
         name: "AdminAccountManagement",
-        component: () => import("../pages/admin/AdminAccountManagement.vue"),
+        component: () =>
+          import("../components/admin/AdminAccountManagement.vue"),
       },
     ],
     beforeEnter: (to, from, next) => {

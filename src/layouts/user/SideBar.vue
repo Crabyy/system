@@ -4,7 +4,7 @@
       <q-header elevated :class="$q.dark.isActive ? 'bg-secondary' : 'bg-gray-800'">
         <q-toolbar>
           <q-btn flat @click="drawer = !drawer" round dense icon="menu" />
-          <q-toolbar-title>Admin Dashboard</q-toolbar-title>
+          <q-toolbar-title>Dashboard</q-toolbar-title>
         </q-toolbar>
       </q-header>
 
@@ -14,7 +14,7 @@
         <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
           <q-list padding>
             <!-- Profile -->
-            <router-link to="/AdminProfile">
+            <router-link to="/Profile">
               <q-item clickable v-ripple @click="selectItem('Profile')"
                 :class="{ 'q-item-active': selectedItem === 'Profile' }">
                 <q-item-section avatar>
@@ -35,7 +35,7 @@
               </q-item>
             </router-link>
 
-            <router-link to="/AdminUnitSelection">
+            <router-link to="/UnitSelection">
               <q-item clickable v-ripple @click="selectItem('UnitSelection')"
                 :class="{ 'q-item-active': selectedItem === 'UnitSelection' }">
                 <q-item-section avatar>
@@ -45,33 +45,13 @@
               </q-item>
             </router-link>
 
-            <router-link to="/AdminAcquireUnit">
+            <router-link to="/AcquireUnit">
               <q-item clickable v-ripple @click="selectItem('AquiringUnit')"
                 :class="{ 'q-item-active': selectedItem === 'AquiringUnit' }">
                 <q-item-section avatar>
                   <i class="fa-solid fa-cart-shopping text-lg"></i>
                 </q-item-section>
                 <q-item-section> Acquiring Unit </q-item-section>
-              </q-item>
-            </router-link>
-
-            <router-link to="/ClientManagement">
-              <q-item clickable v-ripple @click="selectItem('ClientAcc')"
-                :class="{ 'q-item-active': selectedItem === 'ClientAcc' }">
-                <q-item-section avatar>
-                  <i class="fa-solid fa-users text-lg"></i>
-                </q-item-section>
-                <q-item-section> Client Account </q-item-section>
-              </q-item>
-            </router-link>
-
-            <router-link to="/AdminManagement">
-              <q-item clickable v-ripple @click="selectItem('AdminAcc')"
-                :class="{ 'q-item-active': selectedItem === 'AdminAcc' }">
-                <q-item-section avatar>
-                  <i class="fa-solid fa-user-tie text-lg"></i>
-                </q-item-section>
-                <q-item-section> Admin Account </q-item-section>
               </q-item>
             </router-link>
 
@@ -99,7 +79,7 @@
 
 <script>
 import { ref } from "vue";
-import { simulateLogout } from '../../../router/auth.js'
+import { simulateLogout } from '../../router/auth.js'
 
 export default {
   setup() {

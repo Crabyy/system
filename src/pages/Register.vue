@@ -219,7 +219,7 @@
 // import axios from 'axios'
 
 export default {
-  name: 'RegisterComponent',
+  name: 'RegisterPages',
   data() {
     return {
       errModal: false,
