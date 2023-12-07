@@ -1,9 +1,9 @@
 <template>
-  <h2>Aquire Unit</h2>
+  <h2>Acquire Unit</h2>
 </template>
 
 <script>
 export default {
-  name: 'AquireUnit',
+  name: 'AcquireUnit',
 }
 </script>

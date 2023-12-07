@@ -42,9 +42,9 @@ const routes = [
         component: () => import("../pages/UnitSelection.vue"),
       },
       {
-        path: "/AquireUnit",
-        name: "AquireUnit",
-        component: () => import("../pages/AquireUnit.vue"),
+        path: "/AcquireUnit",
+        name: "AcquireUnit",
+        component: () => import("../pages/AcquireUnit.vue"),
       },
     ],
     beforeEnter: (to, from, next) => {
@@ -75,6 +75,17 @@ const routes = [
         name: "AdminDashboard",
         component: () => import("../pages/admin/AdminDashboardComponent.vue"),
       },
+      {
+        path: "/AdminUnitSelection",
+        name: "AdminUnitSelection",
+        component: () => import("../pages/admin/adminUnitSelection.vue"),
+      },
+      {
+        path: "/AdminAcquireUnit",
+        name: "AdminAcquireUnit",
+        component: () => import("../pages/admin/adminAcquireUnit.vue"),
+      },
+
       {
         path: "/ClientManagement",
         name: "ClientAccountManagement",

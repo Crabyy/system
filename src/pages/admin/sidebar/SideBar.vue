@@ -45,7 +45,7 @@
               </q-item>
             </router-link>
 
-            <router-link to="/AquireUnit">
+            <router-link to="/AcquireUnit">
               <q-item clickable v-ripple @click="selectItem('AquiringUnit')"
                 :class="{ 'q-item-active': selectedItem === 'AquiringUnit' }">
                 <q-item-section avatar>
