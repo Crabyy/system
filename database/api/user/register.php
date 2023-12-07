@@ -13,7 +13,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 // Set content type to JSON
 
-require_once('../config/dbcon.php');
+require_once('../../config/dbcon.php');
 
 // Create a new Database instance
 $database = new Database();
@@ -29,6 +29,7 @@ if ($database->dbState()) {
     $email = $requestData['email'];
     $username = $requestData['username'];
     $password = password_hash($requestData['password'], PASSWORD_DEFAULT);
+    $contactnumber = $requestData['contactnumber'];
     $birthdate = $requestData['birthdate'];
     $gender = $requestData['gender'];
 
@@ -36,12 +37,12 @@ if ($database->dbState()) {
     $conn = $database->dbConn();
 
     // Prepare and execute the SQL statement
-    $stmt = $conn->prepare("INSERT INTO admins (role, status, givenname, middlename, surname, email, username, password, birthdate, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO users (role, status, givenname, middlename, surname, email, username, password, contactnumber, birthdate, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
-    $role = 'admin';
+    $role = 'user';
     $status = '1';
 
-    $stmt->execute([$role, $status, $givenname, $middlename, $surname, $email, $username, $password, $birthdate, $gender]);
+    $stmt->execute([$role, $status, $givenname, $middlename, $surname, $email, $username, $password, $contactnumber, $birthdate, $gender]);
 
     echo json_encode(['message' => 'Registration successful']);
   } else {

@@ -29,7 +29,7 @@ const routes = [
       {
         path: "/Profile",
         name: "ProfileComponent",
-        component: () => import("../components/user/Profile.vue"),
+        component: () => import("../components/user/ProfileComponent.vue"),
       },
       {
         path: "/Dashboard",

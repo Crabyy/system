@@ -462,7 +462,7 @@ export default {
           return
         }
 
-        const checkResponse = await fetch('http://localhost/system/database/include/register_inc.php', {
+        const checkResponse = await fetch('http://localhost/system/database/include/user/register_inc.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -492,7 +492,7 @@ export default {
           return
         }
 
-        const response = await fetch('http://localhost/system/database/api/register.php', {
+        const response = await fetch('http://localhost/system/database/api/user/register.php', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

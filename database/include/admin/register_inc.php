@@ -12,7 +12,7 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-require_once('../config/dbcon.php');
+require_once('../../config/dbcon.php');
 
 $database = new Database();
 
@@ -26,7 +26,6 @@ if ($database->dbState()) {
 
     $stmt = $conn->prepare("SELECT COUNT(*) as count FROM admins WHERE username = ? OR email = ?");
     $stmt->execute([$username, $email]);
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
     echo json_encode(['exists' => $result['count'] > 0]);
   } else {

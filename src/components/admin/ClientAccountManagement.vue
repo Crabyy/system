@@ -94,7 +94,7 @@ export default {
 
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost/system/database/include/usersTable.php');
+        const response = await fetch('http://localhost/system/database/include/admin/usersTable.php');
         const data = await response.json();
         originalRows.value = data;
         rows.value = data; // Initialize both original and current rows

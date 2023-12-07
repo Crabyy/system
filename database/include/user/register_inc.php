@@ -12,7 +12,7 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-require_once('../config/dbcon.php');
+require_once('../../config/dbcon.php');
 
 $database = new Database();
 
