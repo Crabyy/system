@@ -120,31 +120,9 @@
                     class="form-radio h-5 w-5 text-pink-500">
                   <span class="ml-2 text-sm">Female</span>
                 </label>
-                <!-- Add more options as needed -->
               </div>
             </div>
           </div>
-
-          <!-- File upload section -->
-          <!-- <div class="mt-3 border p-1 w-full rounded-lg">
-
-            <div class="input-fields flex items-center">
-              <label for="documentUpload" class="flex items-center">
-                <i class="fa-solid fa-upload mr-2 text-gray-500"></i>
-                <span class="documentUpload">Upload Valid ID</span>
-              </label>
-              <input ref="fileInput" class="choosefile hidden" type="file" id="documentUpload" name="documentUpload"
-                accept=".pdf, .doc, .docx, .jpg, .jpeg, .png" @change="handleFileUpload" required />
-              <div class="ml-2">
-                <button type="button"
-                  class="bg-white hover:bg-gray-400 text-black py-2 px-4 rounded-lg border border-solid border-x-gray-300"
-                  @click="triggerFileInput">
-                  Select File
-                </button>
-                <span class="ml-2 " v-if="selectedFileName">{{ selectedFileName }}</span>
-              </div>
-            </div>
-          </div> -->
         </div>
         <div class="flex items-center justify-end mt-6 w-full">
           <button type="submit" id="register" name="register"

@@ -193,7 +193,11 @@ export default {
         label: 'Birthdate',
         align: 'left',
         field: 'birthdate',
-        format: val => `${val}`,
+        format: val => {
+          const date = new Date(val);
+          const options = { month: 'long', day: 'numeric', year: 'numeric' };
+          return date.toLocaleDateString('en-US', options);
+        },
         sortable: true,
       },
       {
