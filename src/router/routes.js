@@ -66,6 +66,11 @@ const routes = [
     component: () => import("../pages/admin/sidebar/adminSideBar.vue"),
     children: [
       {
+        path: "/AdminProfile",
+        name: "AdminProfile",
+        component: () => import("../pages/admin/adminProfile.vue"),
+      },
+      {
         path: "/Administration",
         name: "AdminDashboard",
         component: () => import("../pages/admin/AdminDashboardComponent.vue"),

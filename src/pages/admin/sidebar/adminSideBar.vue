@@ -14,7 +14,7 @@
         <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
           <q-list padding>
             <!-- Profile -->
-            <router-link to="/ProfileComponent">
+            <router-link to="/AdminProfile">
               <q-item clickable v-ripple @click="selectItem('Profile')"
                 :class="{ 'q-item-active': selectedItem === 'Profile' }">
                 <q-item-section avatar>
@@ -35,7 +35,7 @@
               </q-item>
             </router-link>
 
-            <router-link to="/UnitSelection">
+            <router-link to="/AdminUnitSelection">
               <q-item clickable v-ripple @click="selectItem('UnitSelection')"
                 :class="{ 'q-item-active': selectedItem === 'UnitSelection' }">
                 <q-item-section avatar>
