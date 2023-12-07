@@ -1,9 +1,9 @@
 <template>
-  <h2>Dashboard</h2>
+  <h2>Profile</h2>
 </template>
 
 <script>
 export default {
-  name: 'DashboardComponent',
+  name: "ProfileComponent",
 }
 </script>

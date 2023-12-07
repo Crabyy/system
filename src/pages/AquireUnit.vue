@@ -1,9 +1,9 @@
 <template>
-  <h2>Dashboard</h2>
+  <h2>Aquire Unit</h2>
 </template>
 
 <script>
 export default {
-  name: 'DashboardComponent',
+  name: 'AquireUnit',
 }
 </script>

@@ -22,9 +22,31 @@ const routes = [
   },
 
   {
-    path: "/Dashboard",
-    name: "DashboardComponent",
-    component: () => import("../pages/DashboardComponent.vue"),
+    path: "/",
+    name: "SideBar",
+    component: () => import("../pages/admin/sidebar/SideBar.vue"),
+    children: [
+      {
+        path: "/Profile",
+        name: "ProfileComponent",
+        component: () => import("../pages/ProfileComponent.vue"),
+      },
+      {
+        path: "/Dashboard",
+        name: "DashboardComponent",
+        component: () => import("../pages/DashboardComponent.vue"),
+      },
+      {
+        path: "/Unitselection",
+        name: "UnitSelection",
+        component: () => import("../pages/UnitSelection.vue"),
+      },
+      {
+        path: "/AquireUnit",
+        name: "AquireUnit",
+        component: () => import("../pages/AquireUnit.vue"),
+      },
+    ],
     beforeEnter: (to, from, next) => {
       const role = getUserRole();
       if (checkIfUserIsAuthenticated() && role !== "admin") {
@@ -40,8 +62,8 @@ const routes = [
 
   {
     path: "/",
-    name: "SideBar",
-    component: () => import("../pages/admin/sidebar/SideBar.vue"),
+    name: "adminSideBar",
+    component: () => import("../pages/admin/sidebar/adminSideBar.vue"),
     children: [
       {
         path: "/Administration",
