@@ -14,7 +14,7 @@
         <q-scroll-area class="fit" :horizontal-thumb-style="{ opacity: 0 }">
           <q-list padding>
             <!-- Profile -->
-            <router-link to="/Profile">
+            <router-link to="/user/Profile">
               <q-item clickable v-ripple @click="selectItem('Profile')"
                 :class="{ 'q-item-active': selectedItem === 'Profile' }">
                 <q-item-section avatar>
@@ -25,7 +25,7 @@
             </router-link>
 
             <!-- Dashboard -->
-            <router-link to="/">
+            <router-link to="/user/Dashboard">
               <q-item clickable v-ripple @click="selectItem('Dashboard')"
                 :class="{ 'q-item-active': selectedItem === 'Dashboard' }">
                 <q-item-section avatar>
@@ -35,7 +35,7 @@
               </q-item>
             </router-link>
 
-            <router-link to="/UnitSelection">
+            <router-link to="/user/UnitSelection">
               <q-item clickable v-ripple @click="selectItem('UnitSelection')"
                 :class="{ 'q-item-active': selectedItem === 'UnitSelection' }">
                 <q-item-section avatar>
@@ -45,7 +45,7 @@
               </q-item>
             </router-link>
 
-            <router-link to="/AcquireUnit">
+            <router-link to="/user/AcquireUnit">
               <q-item clickable v-ripple @click="selectItem('AquiringUnit')"
                 :class="{ 'q-item-active': selectedItem === 'AquiringUnit' }">
                 <q-item-section avatar>

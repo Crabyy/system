@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { simulateLogin, checkIfUserIsAuthenticated } from '../router/auth';
+import { simulateLogin, checkIfUserIsAuthenticated } from '../router/auth.js'
 import backgroundImage from '../assets/apartment.jpg';
 import Register from '../pages/Register.vue'
 
@@ -139,16 +139,16 @@ export default {
         if (response.ok) {
           const responseData = await response.json();
           if (responseData.success) {
-            simulateLogin(responseData.role); // Pass the role
-            // Inside the signin method
+            simulateLogin(responseData.role, responseData.userId);
+
+            // Fetch user profile data
+            this.fetchProfileData(responseData.userId);
+
             if (responseData.role == "user") {
-              this.$router.push('/Dashboard');
+              this.$router.push('/user/Dashboard');
+            } else if (responseData.role == "admin") {
+              this.$router.push('/admin/Dashboard');
             }
-            if (responseData.role == "admin") {
-              this.$router.push('/Administration');
-            }
-
-
           } else {
             console.error(responseData.message);
           }
@@ -160,6 +160,30 @@ export default {
         console.error('Error during login:', error);
       }
     },
+
+    async fetchProfileData(userId) {
+      try {
+        const response = await fetch(`http://localhost/system/database/include/user/profile_inc.php?userId=${userId}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const userData = await response.json();
+        // Store the profile data in the Vuex store
+        this.$store.dispatch('setProfile', userData);
+
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        // Handle the error as needed
+      }
+    },
+
     deacModal() {
       this.errModal = false
     }

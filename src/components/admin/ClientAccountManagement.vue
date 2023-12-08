@@ -80,30 +80,30 @@
 </template>
 
 <script>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted } from 'vue'
 
 export default {
   setup() {
-    const tableRef = ref();
+    const tableRef = ref()
     const selected = ref([]);
     const originalRows = ref([]); // Store the original data separately
-    const rows = ref([]);
-    const filter = ref('');
-    const removeDialogVisible = ref(false);
-    const selectedUser = ref(null);
+    const rows = ref([])
+    const filter = ref('')
+    const removeDialogVisible = ref(false)
+    const selectedUser = ref(null)
 
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost/system/database/include/admin/usersTable.php');
-        const data = await response.json();
-        originalRows.value = data;
-        rows.value = data; // Initialize both original and current rows
+        const response = await fetch('http://localhost/system/database/include/admin/usersTable.php')
+        const data = await response.json()
+        originalRows.value = data
+        rows.value = data // Initialize both original and current rows
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error)
       }
-    };
+    }
 
-    onMounted(fetchData);
+    onMounted(fetchData)
 
     const columns = [
       {
@@ -187,7 +187,7 @@ export default {
         required: true,
         label: 'Action',
         align: 'left',
-        field: 'id', // Assuming 'id' is a unique identifier for your rows
+        field: 'id',
         format: val => `${val}`,
         sortable: false,
       },

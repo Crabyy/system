@@ -19,6 +19,9 @@ module.exports = configure(function (/* ctx */) {
       // rawOptions: {},
       warnings: true,
       errors: true,
+
+      supportIE: false,
+      boot: ["axios", "vuex"],
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature

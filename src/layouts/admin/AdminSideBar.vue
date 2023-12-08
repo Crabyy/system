@@ -25,7 +25,7 @@
             </router-link>
 
             <!-- Dashboard -->
-            <router-link to="/">
+            <router-link to="/admin/Dashboard">
               <q-item clickable v-ripple @click="selectItem('Dashboard')"
                 :class="{ 'q-item-active': selectedItem === 'Dashboard' }">
                 <q-item-section avatar>

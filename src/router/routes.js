@@ -3,16 +3,15 @@ import { checkIfUserIsAuthenticated, getUserRole } from "./auth";
 const routes = [
   {
     path: "/",
-    name: "SigninComponent",
     component: () => import("src/layouts/SignInLayout.vue"),
     beforeEnter: (to, from, next) => {
       // If the user is already authenticated, redirect to the appropriate dashboard
       if (checkIfUserIsAuthenticated()) {
         const role = getUserRole();
         if (role === "admin") {
-          next("/Administration");
+          next("/admin/Dashboard");
         } else {
-          next("/Dashboard");
+          next("/user/Dashboard");
         }
       } else {
         // Allow access to the SigninComponent for non-authenticated users
@@ -22,28 +21,27 @@ const routes = [
   },
 
   {
-    path: "/",
-    name: "SideBar",
+    path: "/user",
     component: () => import("../layouts/user/SideBar.vue"),
     children: [
       {
-        path: "/Profile",
-        name: "ProfileComponent",
+        path: "Profile",
+        name: "UserProfile",
         component: () => import("../components/user/ProfileComponent.vue"),
       },
       {
-        path: "/Dashboard",
-        name: "DashboardComponent",
+        path: "Dashboard",
+        name: "UserDashboard",
         component: () => import("../components/user/Dashboard.vue"),
       },
       {
-        path: "/Unitselection",
-        name: "UnitSelection",
+        path: "UnitSelection",
+        name: "UserUnitSelection",
         component: () => import("../components/user/UnitSelection.vue"),
       },
       {
-        path: "/AcquireUnit",
-        name: "AcquireUnit",
+        path: "AcquireUnit",
+        name: "UserAcquireUnit",
         component: () => import("../components/user/AcquireUnit.vue"),
       },
     ],
@@ -51,49 +49,45 @@ const routes = [
       const role = getUserRole();
       if (checkIfUserIsAuthenticated() && role !== "admin") {
         next();
-      } else if (checkIfUserIsAuthenticated() && role === "admin") {
-        // Redirect to admin dashboard or wherever you want
-        next("/Administration");
       } else {
+        // Redirect to the root path for unauthorized access
         next("/");
       }
     },
   },
 
   {
-    path: "/",
-    name: "AdminSideBar",
+    path: "/admin",
     component: () => import("../layouts/admin/AdminSideBar.vue"),
     children: [
       {
-        path: "/admin/Profile",
+        path: "Profile",
         name: "AdminProfile",
         component: () => import("../components/admin/AdminProfile.vue"),
       },
       {
-        path: "/Administration",
+        path: "Dashboard",
         name: "AdminDashboard",
         component: () => import("../components/admin/AdminDashboard.vue"),
       },
       {
-        path: "/admin/UnitSelection",
+        path: "UnitSelection",
         name: "AdminUnitSelection",
         component: () => import("../components/admin/AdminUnitSelection.vue"),
       },
       {
-        path: "/admin/AcquireUnit",
+        path: "AcquireUnit",
         name: "AdminAcquireUnit",
         component: () => import("../components/admin/AdminAcquireUnit.vue"),
       },
-
       {
-        path: "/admin/ClientManagement",
+        path: "ClientManagement",
         name: "ClientAccountManagement",
         component: () =>
           import("../components/admin/ClientAccountManagement.vue"),
       },
       {
-        path: "/admin/AdminManagement",
+        path: "AdminManagement",
         name: "AdminAccountManagement",
         component: () =>
           import("../components/admin/AdminAccountManagement.vue"),
@@ -103,14 +97,13 @@ const routes = [
       const role = getUserRole();
       if (checkIfUserIsAuthenticated() && role === "admin") {
         next();
-      } else if (checkIfUserIsAuthenticated() && role !== "admin") {
-        // Redirect to user dashboard or wherever you want
-        next("/Dashboard");
       } else {
+        // Redirect to the root path for unauthorized access
         next("/");
       }
     },
   },
+
   // Always leave this as last one,
   // but you can also remove it
   {
